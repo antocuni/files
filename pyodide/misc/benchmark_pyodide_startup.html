@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <script>
+      function getURL() {
+          const params = new URLSearchParams(window.location.search);
+          const v = params.get('v');
+          if (v === "0.21.3")
+              return "https://antocuni.github.io/files/pyodide/0.21.3/pyodide.js";
+          else if (v == "zipimport2")
+              return "https://antocuni.github.io/files/pyodide/0.22.0.dev0/zipimport2/pyodide.js";
+          else
+              return "https://cdn.jsdelivr.net/pyodide/v0.21.3/full/pyodide.js";
+      }
+
+      function main() {
+          const URL = getURL();
+          const script = document.createElement('script'); // create a script DOM node
+          script.src = URL;
+          script.addEventListener('load', async () => {
+              console.timeEnd('pyodide download');
+
+              console.log('pyodide URL:', URL);
+              console.time('loadPyodide');
+              let pyodide = await loadPyodide();
+              console.timeEnd('loadPyodide');
+
+              try {
+                  console.time('runPython');
+                  pyodide.runPython(`
+                       print('hello world');
+                   `);
+                  console.timeEnd('runPython');
+              }
+              catch(e) {
+                  console.log(e.message);
+              }
+          });
+          console.time('pyodide download');
+          document.head.appendChild(script);
+      }
+
+      addEventListener('DOMContentLoaded', (event) => { main(); });
+    </script>
+  </head>
+
+<body>
+
+<p>Pyodide benchmark (see the console)</p>
+<ul>
+  <li><a href="?">Default: 0.21.3 from pyodide CDN</a></li>
+  <li><a href="?v=0.21.3">0.21.3 from GH pages</a></li>
+  <li><a href="?v=zipimport2">0.22.0.dev0/zipimport2 from GH pages</a></li>
+</ul>
+
+</body>
+</html>
