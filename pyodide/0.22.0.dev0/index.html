@@ -1,54 +1,86 @@
 <!DOCTYPE html>
+<html lang="en">
 <head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <title>Index of /pyodide/</title>
-    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css" rel="stylesheet">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Index of 0.22.0.dev0</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css">
+    <style>
+        body {
+            padding: 20px;
+        }
+        .directory {
+            font-weight: bold;
+            color: #0d6efd;
+        }
+        .file {
+            color: #212529;
+        }
+        .file-size {
+            color: #6c757d;
+            text-align: right;
+        }
+        .last-modified {
+            color: #6c757d;
+        }
+        .table-hover tbody tr:hover {
+            background-color: rgba(13, 110, 253, 0.1);
+        }
+        /* GitHub markdown styles */
+        .markdown-body {
+            font-family: -apple-system,BlinkMacSystemFont,"Segoe UI",Helvetica,Arial,sans-serif,"Apple Color Emoji","Segoe UI Emoji";
+            font-size: 16px;
+            line-height: 1.5;
+            word-wrap: break-word;
+            padding: 15px;
+        }
+        .markdown-body pre {
+            border-radius: 3px;
+            background-color: #f6f8fa;
+            padding: 16px;
+            overflow: auto;
+        }
+        .markdown-body code {
+            padding: 0.2em 0.4em;
+            margin: 0;
+            font-size: 85%;
+            background-color: rgba(175, 184, 193, 0.2);
+            border-radius: 6px;
+        }
+        .markdown-body pre code {
+            background-color: transparent;
+            padding: 0;
+        }
+    </style>
 </head>
-
 <body>
-    <div class="container-fluid">
-    <h3 class="text-muted" style="padding-top: 12px; padding-bottom: 12px; text-decoration-color: rgb(0, 0, 0); color: rgb(0, 0, 0);"><b style="color: rgb(63, 59, 59);">Index of /pyodide//0.22.0.dev0</b></h3>
-   <table class="table table-sm table-hover table-striped">
-		<thead>
-			<tr>
-				<th style="width: 65%">
-					Filename
-				</th>
-				<th style="width: 15%" >
-					Size
-				</th>
-				<th style="width: 20%">
-					Last Modified
-				</th>
-			</tr>
-		</thead>
-		<tbody>
-            <tr>
-    <td>
-        <p style="display: none">..</p><img style="margin-right: 5px; max-width: 20px"
-            src="data:image/png;base64, iVBORw0KGgoAAAANSUhEUgAAADAAAAAwCAYAAABXAvmHAAAABHNCSVQICAgIfAhkiAAAAAlwSFlzAAAsSwAALEsBpT2WqQAAABl0RVh0U29mdHdhcmUAd3d3Lmlua3NjYXBlLm9yZ5vuPBoAAAFISURBVGiB7Zg9coMwEEa/9eQAJnfAOYcvlaiL0oFPlWtg3yGkS6lUzlDAjn52rSWj14PeG7DRCmg0Go1/i5tm/3r9GjTXIK0bu2n2gfAOAAFhvJyencY6KgFL+TtaEeIBa/J3NCJEAzj5vwUJ56HvPqXWfJK6UYx8IPhRUB4QegKx8pe++5BYb0lxQE15oDCgtjxQEGBBHsgMsCIPZARYkgcSA6zJAwkBFuWByACr8kBEQIz8IxhP3arrgbvIijzHZsAe5AHuCRzo54Ee2WwGDP1xJCKVKUoS9jewh4i4v9Hb91sIgR3ONedejvgPmdGItK2EwYj0zZyxiLzttKGI/IHGSETZSGkgonyorxwhc6xSMULsZK5WxO6PFtm9UCrDS+e5vVMgeEl5QOt4feV1Mnu0uMUyota8XIybZu+m2df2aDQaDT1+AR8wAjICbNVxAAAAAElFTkSuQmCC" /><a href="..">..</a>
-    </td>
-    <td>-</td>
-    <td>19-Dec-2022 20:09</td>
-</tr>
-<tr>
-    <td>
-        <p style="display: none">zipimport2</p><img style="margin-right: 5px; max-width: 20px"
-            src="data:image/png;base64, iVBORw0KGgoAAAANSUhEUgAAADAAAAAwCAYAAABXAvmHAAAABHNCSVQICAgIfAhkiAAAAAlwSFlzAAAOxAAADsQBlSsOGwAAABl0RVh0U29mdHdhcmUAd3d3Lmlua3NjYXBlLm9yZ5vuPBoAAAGQSURBVGiB7Zg9T8JQFIbfoiBGK2FAA0YHdWbUOLsr/0AHJndmiaM7rsbJWd2UwTDp6KjRARJMLIMfBGhL6XUwDPZ6A0Lh1OQ842lz8j655zTNBRiGYSjRvIX1k8sMQjjWIJKDNHQFXkIa9u92t8+Hj9ebSW/Bcp1Cw3KSHSEGajihaamZSLgAYCwCIW+h0XZSg4YHgI4QaNjtxaFS/QFJYJjwfvboF2mE/GLj9MJXC9VujUzAaJq+9lPtljRCQUW1W8oT2FyII5deRSIaGW2yHtRMG0f3z7g13n7dLeUJBCE8ACSiEeTSK8rnkoDbasKulgMRvsv89BTsagVuqyk9k0ZoKaZjayeDs7A+lnD9kt3LonhTRNlTl34lDp7exawerPBd6vVPHK7Ff2SWRiio4QFA1+ek2r/5jKpgAWpYgBoWoIYFqGEBaliAGhaghgWoYQFqWIAaScCxzBpFkH5wTNPw1iSBh9J1vmNb0ovUOJb1+li6ynvr0sUWgBiAZQDBuVv8xgZQAfBBHYRhGB/5Aq4cd3fSSnLyAAAAAElFTkSuQmCC" /><a href="zipimport2">zipimport2</a>
-    </td>
-    <td>-</td>
-    <td>19-Dec-2022 20:15</td>
-</tr>
+    <div class="container">
+        <h1>Index of 0.22.0.dev0</h1>
+        
+        <div class="mb-3">
+            <a href="../" class="btn btn-outline-primary btn-sm">&laquo; Parent Directory</a>
+        </div>
+        
+        <table class="table table-hover">
+            <thead>
+                <tr>
+                    <th>Name</th>
+                    <th>Size</th>
+                    <th>Last Modified</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td><a href="zipimport2/" class="directory">zipimport2/</a></td>
+                    <td class="file-size">-</td>
+                    <td class="last-modified">2025-03-11 12:44:26</td>
+                </tr>
+            </tbody>
+        </table>
 
-            
-		</tbody>
-    </table>
-    <span>
-        <span style="font-size: 12px">generated by </span><a style="font-size: 12px"
-    href="https://github.com/jayanta525/apindex" target="_blank">apindex</a>
-
-    </span>
+        <footer class="mt-4 text-center text-muted">
+            <small>Generated by genindex.py on 2025-03-11 13:09:14</small>
+        </footer>
     </div>
 </body>
 </html>
