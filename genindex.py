@@ -39,8 +39,27 @@ def get_git_info(directory):
             )
             # Return code 0 means the file is ignored, 1 means it's not ignored
             return result.returncode == 0
+            
+        def get_git_last_modified(file_path):
+            """Get the last modified date of a file from git"""
+            try:
+                rel_path = file_path.relative_to(git_root)
+                result = subprocess.run(
+                    ['git', 'log', '-1', '--format=%cd', '--date=iso', '--', str(rel_path)],
+                    cwd=git_root,
+                    capture_output=True, text=True, check=True
+                )
+                if result.stdout.strip():
+                    # Parse the git date format
+                    git_date = datetime.datetime.strptime(
+                        result.stdout.strip(), '%Y-%m-%d %H:%M:%S %z'
+                    )
+                    return git_date.strftime('%Y-%m-%d %H:%M:%S')
+                return None
+            except (subprocess.CalledProcessError, ValueError):
+                return None
 
-        return tracked_files, is_ignored, git_root
+        return tracked_files, is_ignored, git_root, get_git_last_modified
     except subprocess.CalledProcessError:
         print(f"{YELLOW}Warning: Error running git commands in {directory}. Not a git repository or git not installed.{RESET}")
         return set(), lambda path: False, Path(directory)
@@ -53,7 +72,7 @@ def generate_index(directory):
     path = Path(directory).resolve()
 
     # Get git information: tracked files and function to check if files are ignored
-    all_git_tracked_files, is_git_ignored, git_root = get_git_info(os.getcwd())
+    all_git_tracked_files, is_git_ignored, git_root, get_git_last_modified = get_git_info(os.getcwd())
 
     # Get all files and directories in the current directory
     all_items = [p for p in path.iterdir() if p.name != '.git' and not p.name.endswith('~')]
@@ -174,7 +193,13 @@ def generate_index(directory):
         is_dir = item.is_dir()
         name = f"{item.name}/"  if is_dir else item.name
         size = "-" if is_dir else format_size(item.stat().st_size)
-        last_modified = datetime.datetime.fromtimestamp(item.stat().st_mtime).strftime('%Y-%m-%d %H:%M:%S')
+        
+        # Get last modified date from git if available, otherwise use filesystem
+        git_last_modified = get_git_last_modified(item)
+        if git_last_modified:
+            last_modified = git_last_modified
+        else:
+            last_modified = datetime.datetime.fromtimestamp(item.stat().st_mtime).strftime('%Y-%m-%d %H:%M:%S')
 
         item_class = "directory" if is_dir else "file"
 
