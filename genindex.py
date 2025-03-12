@@ -39,7 +39,7 @@ def get_git_info(directory):
             )
             # Return code 0 means the file is ignored, 1 means it's not ignored
             return result.returncode == 0
-            
+
         def get_git_last_modified(file_path):
             """Get the last modified date of a file from git"""
             try:
@@ -193,13 +193,13 @@ def generate_index(directory):
         is_dir = item.is_dir()
         name = f"{item.name}/"  if is_dir else item.name
         size = "-" if is_dir else format_size(item.stat().st_size)
-        
+
         # Get last modified date from git if available, otherwise use filesystem
         git_last_modified = get_git_last_modified(item)
         if git_last_modified:
             last_modified = git_last_modified
         else:
-            last_modified = datetime.datetime.fromtimestamp(item.stat().st_mtime).strftime('%Y-%m-%d %H:%M:%S')
+            last_modified = ""
 
         item_class = "directory" if is_dir else "file"
 
