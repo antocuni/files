@@ -196,10 +196,12 @@ def generate_index(directory):
 
         # Get last modified date from git if available, otherwise use filesystem
         git_last_modified = get_git_last_modified(item)
-        if git_last_modified:
+        if is_dir:
+            last_modified = ""
+        elif git_last_modified:
             last_modified = git_last_modified
         else:
-            last_modified = ""
+            last_modified = datetime.datetime.fromtimestamp(item.stat().st_mtime).strftime('%Y-%m-%d %H:%M:%S')
 
         item_class = "directory" if is_dir else "file"
 
